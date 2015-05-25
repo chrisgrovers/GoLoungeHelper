@@ -38,8 +38,8 @@ betHelper.controller('MainController', function($scope, csgolounge) {
                     } else if (currentMatch.team_b === teamName) {
                         console.log('a match was found!');
                         var match = {
-                            vs: currentMatch.team_b,
-                            odds: currentMatch.team_a_odd,
+                            vs: currentMatch.team_a,
+                            odds: currentMatch.team_b_odd,
                             date: currentMatch.match_date,
                             link: currentMatch.match_link,
                             type: currentMatch.match_type,
