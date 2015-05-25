@@ -3,8 +3,27 @@
 <body ng-controller="MainController">
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="script.js"></script>
-    <button ng-click="getBets()">bets</button>
-    <div> {{ bets }} </div>
+    <link rel="stylesheet" href="style.css">
+
+    <form ng-submit="getBets()">
+        <input type="text" ng-model="teamName" name="text">
+        <input type="submit" id="submit" value="Submit">
+    </form>
+
+
+
+
+    <!-- need two divs:
+        1: previous 5 matches
+        2: list of stats for likelyhood of wins-->
+    <!-- list how close matches are??-->
+    <!-- list of matches under here-->
+    <div class="info">
+        <div  ng-repeat="matches in matches.all">
+            {{teamName}} VS. {{ matches.vs }} -- odds of winning: {{matches.odds}}
+            -- Did they win?: {{matches.won}} -- date: {{matches.date}}<br>
+        </div>
+    </div>
 
 
 </body>

@@ -1,0 +1,9 @@
+body {
+    background-image: url('GoHelperWall.png');
+    background-size: auto no-reapeat;
+}
+
+.info {
+    background-color: rgba(240, 233, 233, 0.6);
+    border-radius: 16px;
+}
