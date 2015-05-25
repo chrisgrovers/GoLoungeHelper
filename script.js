@@ -12,6 +12,7 @@ betHelper.controller('MainController', function($scope, csgolounge) {
 
     $scope.getBets = function() {
         console.log('hello');
+        $scope.matches.all=[];
         csgolounge.getStats()
             .then(function(data) {
             // resp.data should be a big list of all matches in csgolounge
