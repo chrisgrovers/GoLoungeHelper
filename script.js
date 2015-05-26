@@ -48,17 +48,17 @@ betHelper.controller('MainController', function($scope, csgolounge) {
 
         var matchId = url.substr(url.length - 4);
         console.log("This is the matchId:", matchId);
-        csgolounge.getStats()
+        csgolounge.getNames()
             .then(function(data) {
                 console.log('line 53. Currently trying to get here');
                 console.log('this is matchId', matchId);
-                console.log('data.matches.length is:', data.matches.length);
-                for (var l = 0; l < data.matches.length; l++) {
-                    console.log('the matchId inside of for loop', matchId);
-                    if (data.matches[l]._id === matchId) {
-                        console.log('team b', data.matches[l].team_b);
-                        $scope.compareName = data.matches[l].team_b;
-                        $scope.teamName = data.matches[l].team_a;
+                console.log('first teamName:', data[0].b);
+                console.log('data.matches.length is:', data.length);
+                for (var l = 0; l < data.length; l++) {
+                    if (data[l].match === matchId) {
+                        console.log('team b', data[l].b);
+                        $scope.compareName = data[l].b;
+                        $scope.teamName = data[l].a;
                     }
                 }
             
@@ -230,9 +230,9 @@ betHelper.controller('MainController', function($scope, csgolounge) {
 })
 
 betHelper.factory('csgolounge', function($http) {
-
-    var getStats = function() {
-        var url = 'http://csgo.hvalrossen.dk/'
+    var getNames = function() {
+        var url = 'http://csgolounge.com/api/matches'
+        // 'http://csgo.hvalrossen.dk/'
         //  return $http.jsonp('/path/to/api/service?callback=JSON_CALLBACK')
         //     .success(function (data) {
         //         console.log(data);
@@ -247,24 +247,39 @@ betHelper.factory('csgolounge', function($http) {
         .then(function(resp) {
             // needs to handle cross origin request.
             // Workaround is with chrome extension for now
-            console.log('inside getstats response');
-             console.dir(resp.data);
+            // cross origin request is server side.
+            return resp.data;
+        });
+
+    }
+    var getStats = function() {
+        var url = 'http://csgo.hvalrossen.dk/'
+        // http://csgolounge.com/api/matches_stats'
+        // 'http://csgo.hvalrossen.dk/'
+        //  return $http.jsonp('/path/to/api/service?callback=JSON_CALLBACK')
+        //     .success(function (data) {
+        //         console.log(data);
+        //     });
+        // }
+
+        return $http({
+            method: 'GET',
+            dataType: 'JSONP',
+            url: url
+        })
+        .then(function(resp) {
+            // needs to handle cross origin request.
+            // Workaround is with chrome extension for now
+            // cross origin error is server side.
             return resp.data;
         });
     }
 
     //comparestats
     //only needs to run through list of current matches. Check vs in matches var.
-    var compareTeams = function() {
-
-    }
-
-    var percentageWins = function() {
-
-    }
-
     return {
-        getStats: getStats
+        getStats: getStats,
+        getNames: getNames
     }
 })
 
