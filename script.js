@@ -48,13 +48,8 @@ betHelper.controller('MainController', function($scope, csgolounge) {
         console.log("This is the matchId:", matchId);
         csgolounge.getNames()
             .then(function(data) {
-                console.log('line 53. Currently trying to get here');
-                console.log('this is matchId', matchId);
-                console.log('first teamName:', data[0].b);
-                console.log('data.matches.length is:', data.length);
                 for (var l = 0; l < data.length; l++) {
                     if (data[l].match === matchId) {
-                        console.log('team b', data[l].b);
                         $scope.compareName = data[l].b;
                         $scope.teamName = data[l].a;
                     }
@@ -64,13 +59,8 @@ betHelper.controller('MainController', function($scope, csgolounge) {
             .catch(function(err) {
                 console.error(err);
             });
-
-        console.log('compare name', $scope.compareName, 'team name', $scope.teamName)
-        console.log('getting bets');
         $scope.getBets();
-        console.log('comparing matches');
         $scope.compareMatches();
-
     }
 
     $scope.compareNumbers = function() {
@@ -182,6 +172,7 @@ betHelper.controller('MainController', function($scope, csgolounge) {
             // resp.data should be a big list of all matches in csgolounge
                 // for each object that matches, push to object array
                 // really bad. Do I really want to iterate over 3000 objects?
+
                 for (var i = 0; i < data.matches.length; i++) {
                     var currentMatch = data.matches[i]
                     if (currentMatch.team_a === $scope.teamName) {

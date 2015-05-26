@@ -4,67 +4,71 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
+    <div class="input">
 
-    <form class="teamInput" ng-submit="getBets()">
-        <input type="text" ng-model="teamName" ng-click="teamName = null" name="text">
-        <input type="submit" id="submit" value="You're so gonna win">
-    </form>
-
-
-    <form class="compareInput" ng-show="matches.all.length" ng-submit="compareMatches()">
-        <input type="text" ng-model="compareName" ng-click="compareName = null" name="text">
-        <input type="submit" id="submit" value="You're really, really gonna win">
-    </form><br>
-
-    <div class="urlDiv">
-        <form class="urlDrop" ng-submit="getUrl()" >
-            <input type="url" id="urlInput" ng-model="urlDrop" ng-click="urlDrop = null">
-            <input type="submit"  value="CSGOlounge Url">
+        <form class="teamInput" ng-submit="getBets()">
+            <input type="text" ng-model="teamName" ng-click="teamName = null" name="text">
+            <input type="submit" id="submit" value="You're so gonna win">
         </form>
+
+
+        <form class="compareInput" ng-show="matches.all.length" ng-submit="compareMatches()">
+            <input type="text" ng-model="compareName" ng-click="compareName = null" name="text">
+            <input type="submit" id="submit" value="You're really, really gonna win">
+        </form><br>
+
+        <div class="urlDiv">
+            <form class="urlDrop" ng-submit="getUrl()" >
+                <input type="url" id="urlInput" ng-model="urlDrop" ng-click="urlDrop = null">
+                <input type="submit"  value="CSGOlounge Url">
+            </form>
+        </div>
     </div>
 
 
-    <!-- need two divs:
-        1: previous 5 matches
-        2: list of stats for likelyhood of wins-->
-    <!-- list how close matches are??-->
-    <div class="matchup info" ng-show="secondMatches.all.length">
-    <!-- if no compare numbers, display they have not played each other -->
-    <!-- info on playing similar teams? -->
-    OUR MATCHUP HISTORY:
-        <div id="history" class="center" ng-repeat="matchups in compareBox">
-            {{matchups.date}}:
-            Odds for {{teamName}}: {{matchups.odds}}
-            <br> winner: <div ng-show="matchups.won"> {{teamName}}</div><div ng-show="!matchups.won"> {{compareName}}</div>
+    <div class="display">
+        <!-- need two divs:
+            1: previous 5 matches
+            2: list of stats for likelyhood of wins-->
+        <!-- list how close matches are??-->
+        <div class="matchup info" ng-show="secondMatches.all.length">
+        <!-- if no compare numbers, display they have not played each other -->
+        <!-- info on playing similar teams? -->
+        OUR MATCHUP HISTORY:
+            <div id="history" class="center" ng-repeat="matchups in compareBox">
+                {{matchups.date}}:
+                Odds for {{teamName}}: {{matchups.odds}}
+                <br> winner: <div ng-show="matchups.won"> {{teamName}}</div><div ng-show="!matchups.won"> {{compareName}}</div>
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="info active"  ng-show="matches.all.length">
-        <div class="history">Displaying results for: {{teamName}} <br>
-            Record for csgolounge odds:
-            <div id="odds" ng-repeat="(key, percentage) in matches" ng-show="!$last">
-                above {{key}}0%: {{percentage[0]}}/{{percentage[1]}} <br>
+        <div class="info active"  ng-show="matches.all.length">
+            <div class="history">Displaying results for: {{teamName}} <br>
+                Record for csgolounge odds:
+                <div id="odds" ng-repeat="(key, percentage) in matches" ng-show="!$last">
+                    above {{key}}0%: {{percentage[0]}}/{{percentage[1]}} <br>
+                </div>
+            </div>
+        <!-- list of matches under here-->
+            <div  id="history" ng-repeat="matches in matches.all">
+                VS. {{ matches.vs }} -- odds of winning: {{matches.odds}}
+                -- Did they win?: {{matches.won}} -- date: {{matches.date}}<br>
             </div>
         </div>
-    <!-- list of matches under here-->
-        <div  id="history" ng-repeat="matches in matches.all">
-            VS. {{ matches.vs }} -- odds of winning: {{matches.odds}}
-            -- Did they win?: {{matches.won}} -- date: {{matches.date}}<br>
-        </div>
-    </div>
 
-    <div class="compareInfo info" ng-show="secondMatches.all.length">
-        <div class="history" >Displaying results for: {{compareName}} <br>
-            Record for csgolounge odds:
-            <div id="odds" ng-repeat="(key, percentage) in secondMatches" ng-show="!$last">
-                above {{key}}0%: {{percentage[0]}}/{{percentage[1]}} 
+        <div class="compareInfo info" ng-show="secondMatches.all.length">
+            <div class="history" >Displaying results for: {{compareName}} <br>
+                Record for csgolounge odds:
+                <div id="odds" ng-repeat="(key, percentage) in secondMatches" ng-show="!$last">
+                    above {{key}}0%: {{percentage[0]}}/{{percentage[1]}} 
+                </div>
             </div>
-        </div>
-    <!-- list of matches under here-->
-        <div  id="history" ng-repeat="battles in secondMatches.all">
-            VS. {{ battles.vs }} -- odds of winning: {{battles.odds}}
-            -- Did they win?: {{battles.won}} -- date: {{battles.date}}<br>
+        <!-- list of matches under here-->
+            <div  id="history" ng-repeat="battles in secondMatches.all">
+                VS. {{ battles.vs }} -- odds of winning: {{battles.odds}}
+                -- Did they win?: {{battles.won}} -- date: {{battles.date}}<br>
+            </div>
         </div>
     </div>
 
