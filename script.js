@@ -17,7 +17,9 @@ betHelper.controller('MainController', function($scope, csgolounge) {
         return wins;
     };
     $scope.teamName = "TEAM NAME HERE";
+    $scope.compareName = "Compare A Team";
     $scope.matches = [];
+    $scope.compareMatches = [];
 
 
     $scope.getBets = function() {
@@ -86,6 +88,7 @@ betHelper.factory('csgolounge', function($http) {
             return resp.data;
         });
     }
+
     //comparestats
     //only needs to run through list of current matches. Check vs in matches var.
     var compareTeams = function() {
@@ -100,3 +103,11 @@ betHelper.factory('csgolounge', function($http) {
         getStats: getStats
     }
 })
+
+
+// function myCtrl($scope) {
+//     $scope.toggleClass = function() {
+//      var myEl = angular.element( document.querySelector( '#divID' ) );
+//      myEl.toggleClass('red');     
+//     }
+// }

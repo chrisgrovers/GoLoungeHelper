@@ -5,13 +5,13 @@
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
 
-    <form ng-submit="getBets()">
-        <input type="text" ng-model="teamName" name="text">
+    <form class="teamInput" ng-submit="getBets()" ng-class="">
+        <input type="text" ng-model="teamName" ng-click="teamName = null" name="text">
         <input type="submit" id="submit" value="You're so gonna win">
     </form>
 
-    <form class="compare" ng-show="matches.length" ng-submit="getBets()">
-        <input type="text" ng-model="compareName" name="text">
+    <form class="compareInput" ng-show="matches.length" ng-submit="getBets()">
+        <input type="text" ng-model="compareName" ng-click="compareName = null" name="text">
         <input type="submit" id="submit" value="You're really, really gonna win">
     </form>
 
@@ -22,10 +22,18 @@
         1: previous 5 matches
         2: list of stats for likelyhood of wins-->
     <!-- list how close matches are??-->
-    <!-- list of matches under here-->
-    <div class="info">
-        <div ng-show="matches.length">Displaying results for: {{teamName}}
+
+    <!-- <button ng-click="toggleClass()">
+  Toggle Class
+</button>
+<div id="divID">
+  This text color can be changed by class
+</div> -->
+
+    <div class="info" >
+        <div ng-show="matches.length">Displaying results for: {{teamName}} <br>
             Record: {{numWins}}/{{numMatches}}</div>
+    <!-- list of matches under here-->
         <div  id="history" ng-repeat="matches in matches">
             VS. {{ matches.vs }} -- odds of winning: {{matches.odds}}
             -- Did they win?: {{matches.won}} -- date: {{matches.date}}<br>
