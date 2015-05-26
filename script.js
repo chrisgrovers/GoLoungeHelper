@@ -5,22 +5,11 @@ var betHelper = angular.module('betHelper', [])
 
 betHelper.controller('MainController', function($scope, csgolounge) {
     //welcome message?
-    $scope.numMatches = 0;
-    $scope.numWins = function() {
-        var wins = 0;
-        for (var j = 0; j < matches.length; j++) {
-            if (matches[j].won) {
-                wins++;
-            }
-        }
-        $scope.numMatches = matches.length;
-        return wins;
-    };
+
     $scope.teamName = "TEAM NAME HERE";
     $scope.compareName = "Compare A Team";
     $scope.matches = [];
     $scope.compareMatches = [];
-
 
     $scope.getBets = function() {
         console.log('hello');
@@ -36,7 +25,7 @@ betHelper.controller('MainController', function($scope, csgolounge) {
                 // really bad. Do I really want to iterate over 3000 objects?
                 for (var i = 0; i < data.matches.length; i++) {
                     var currentMatch = data.matches[i]
-                    if (currentMatch.team_a === teamName) {
+                    if (currentMatch.team_a.ignoreCase === teamName.ignoreCase) {
                         console.log('a match was found!');
                         var match = {
                             vs: currentMatch.team_b,
@@ -48,7 +37,7 @@ betHelper.controller('MainController', function($scope, csgolounge) {
                         }
                         $scope.matches.push(match);
 
-                    } else if (currentMatch.team_b === teamName) {
+                    } else if (currentMatch.team_b.ignoreCase === teamName.ignoreCase) {
                         console.log('a match was found!');
                         var match = {
                             vs: currentMatch.team_a,
@@ -63,7 +52,6 @@ betHelper.controller('MainController', function($scope, csgolounge) {
                 }
                 console.log('matches data');
                 console.dir($scope.matches);
-                $scope.numWins();
             })
             .catch(function(err) {
                 console.error(err);

@@ -30,8 +30,8 @@
   This text color can be changed by class
 </div> -->
 
-    <div class="info" >
-        <div ng-show="matches.length">Displaying results for: {{teamName}} <br>
+    <div class="info" ng-show="matches.length">
+        <div>Displaying results for: {{teamName}} <br>
             Record: {{numWins}}/{{numMatches}}</div>
     <!-- list of matches under here-->
         <div  id="history" ng-repeat="matches in matches">
