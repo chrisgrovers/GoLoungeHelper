@@ -26,8 +26,8 @@
     <!-- if no compare numbers, display they have not played each other -->
     <!-- info on playing similar teams? -->
     OUR MATCHUP HISTORY:
-        <div id="history" ng-repeat="matchups in compareBox">
-            {{matchups.date}}<br>
+        <div id="history" class="center" ng-repeat="matchups in compareBox">
+            {{matchups.date}}:
             Odds for {{teamName}}: {{matchups.odds}}
             <br> winner: <div ng-show="matchups.won"> {{teamName}}</div><div ng-show="!matchups.won"> {{compareName}}</div>
         </div>

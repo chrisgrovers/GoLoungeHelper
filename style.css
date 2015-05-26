@@ -24,7 +24,16 @@ body {
 }
 .matchup {
     text-align: center;
+    display: inline-block;
 
+
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    background-color: #b0e0e6;
 }
 
 #history {
