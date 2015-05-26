@@ -26,23 +26,26 @@ body {
     text-align: center;
     display: inline-block;
 
-
 }
 
 .center {
     margin-left: auto;
     margin-right: auto;
     width: 70%;
-    background-color: #b0e0e6;
 }
 
-#history {
-    padding:5px;
+.history {
+    margin: 20px;
 }
 
 .teamInput {
     float: left;
     top 10px;
+}
+
+.urlDrop {
+    float: left;
+    top 20px;
 }
 
 .compareInput {
@@ -53,4 +56,16 @@ body {
 .active {
     display: inline-block;
     width: 43%;
+}
+
+.test {
+    border-radius: 1px;
+}
+
+#history {
+    padding:5px;
+}
+
+#odds {
+    margin: 10px;
 }

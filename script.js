@@ -14,6 +14,7 @@ betHelper.controller('MainController', function($scope, csgolounge) {
 
     $scope.teamName = "TEAM NAME HERE";
     $scope.compareName = "Compare A Team";
+    $scope.urlDrop = "Drop csgolounge URL"
     $scope.compareBox = [];
     $scope.matches = {
         all: [],
@@ -40,6 +41,39 @@ betHelper.controller('MainController', function($scope, csgolounge) {
         2:[0,0],
         1:[0,0]
     };
+
+    $scope.getUrl = function() {
+        // $scope.urlDrop = http://csgolounge.com/match?m=3717;
+        var url = $scope.urlDrop;
+
+        var matchId = url.substr(url.length - 4);
+        console.log("This is the matchId:", matchId);
+        csgolounge.getStats()
+            .then(function(data) {
+                console.log('line 53. Currently trying to get here');
+                console.log('this is matchId', matchId);
+                console.log('data.matches.length is:', data.matches.length);
+                for (var l = 0; l < data.matches.length; l++) {
+                    console.log('the matchId inside of for loop', matchId);
+                    if (data.matches[l]._id === matchId) {
+                        console.log('team b', data.matches[l].team_b);
+                        $scope.compareName = data.matches[l].team_b;
+                        $scope.teamName = data.matches[l].team_a;
+                    }
+                }
+            
+            })
+            .catch(function(err) {
+                console.error(err);
+            });
+
+        console.log('compare name', $scope.compareName, 'team name', $scope.teamName)
+        console.log('getting bets');
+        $scope.getBets();
+        console.log('comparing matches');
+        $scope.compareMatches();
+
+    }
 
     $scope.compareNumbers = function() {
         for (var k = 0; k < $scope.matches.all.length; k++) {
@@ -199,15 +233,21 @@ betHelper.factory('csgolounge', function($http) {
 
     var getStats = function() {
         var url = 'http://csgo.hvalrossen.dk/'
+        //  return $http.jsonp('/path/to/api/service?callback=JSON_CALLBACK')
+        //     .success(function (data) {
+        //         console.log(data);
+        //     });
+        // }
+
         return $http({
             method: 'GET',
-            dataType: 'jsonp',
+            dataType: 'JSONP',
             url: url
         })
         .then(function(resp) {
             // needs to handle cross origin request.
             // Workaround is with chrome extension for now
-            console.log('inside getstats then');
+            console.log('inside getstats response');
              console.dir(resp.data);
             return resp.data;
         });
