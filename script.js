@@ -10,7 +10,6 @@
 var betHelper = angular.module('betHelper', [])
 
 betHelper.controller('MainController', function($scope, csgolounge) {
-    //welcome message?
 
     $scope.teamName = "TEAM NAME HERE";
     $scope.compareName = "Compare A Team";
@@ -43,7 +42,6 @@ betHelper.controller('MainController', function($scope, csgolounge) {
     };
 
     $scope.getUrl = function() {
-        // $scope.urlDrop = http://csgolounge.com/match?m=3717;
         var url = $scope.urlDrop;
 
         var matchId = url.substr(url.length - 4);
@@ -135,17 +133,11 @@ betHelper.controller('MainController', function($scope, csgolounge) {
     }
 
     $scope.compareMatches = function() {
-        // need to add class '.compare' to 
 
         console.log('hello');
         $scope.secondMatches.all=[];
         csgolounge.getStats()
             .then(function(data) {
-            // resp.data should be a big list of all matches in csgolounge
-            // need to filter this data by input name
-            // input should match either "team_a" or "team_b"
-                // for each object that matches, push to object array
-                // really bad. Do I really want to iterate over 3000 objects?
                 for (var i = 0; i < data.matches.length; i++) {
                     var currentMatch = data.matches[i]
                     if (currentMatch.team_a === $scope.compareName) {
@@ -188,8 +180,6 @@ betHelper.controller('MainController', function($scope, csgolounge) {
         csgolounge.getStats()
             .then(function(data) {
             // resp.data should be a big list of all matches in csgolounge
-            // need to filter this data by input name
-            // input should match either "team_a" or "team_b"
                 // for each object that matches, push to object array
                 // really bad. Do I really want to iterate over 3000 objects?
                 for (var i = 0; i < data.matches.length; i++) {
@@ -230,6 +220,8 @@ betHelper.controller('MainController', function($scope, csgolounge) {
 })
 
 betHelper.factory('csgolounge', function($http) {
+
+    // Needed in order to match up to date matchID's
     var getNames = function() {
         var url = 'http://csgolounge.com/api/matches'
         // 'http://csgo.hvalrossen.dk/'
@@ -252,15 +244,10 @@ betHelper.factory('csgolounge', function($http) {
         });
 
     }
+
+    // gets actual info to be used
     var getStats = function() {
         var url = 'http://csgo.hvalrossen.dk/'
-        // http://csgolounge.com/api/matches_stats'
-        // 'http://csgo.hvalrossen.dk/'
-        //  return $http.jsonp('/path/to/api/service?callback=JSON_CALLBACK')
-        //     .success(function (data) {
-        //         console.log(data);
-        //     });
-        // }
 
         return $http({
             method: 'GET',
@@ -282,11 +269,3 @@ betHelper.factory('csgolounge', function($http) {
         getNames: getNames
     }
 })
-
-
-// function myCtrl($scope) {
-//     $scope.toggleClass = function() {
-//      var myEl = angular.element( document.querySelector( '#divID' ) );
-//      myEl.toggleClass('red');     
-//     }
-// }

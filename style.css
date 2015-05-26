@@ -50,7 +50,8 @@ body {
 
 .compareInput {
     top: 10px;
-    float:right;
+
+
 }
 
 .active {
@@ -62,10 +63,18 @@ body {
     border-radius: 1px;
 }
 
+.urlDiv {
+    text-align: center;
+}
+
 #history {
     padding:5px;
 }
 
 #odds {
     margin: 10px;
+}
+
+#urlInput {
+    width:400px;
 }

@@ -13,14 +13,15 @@
 
     <form class="compareInput" ng-show="matches.all.length" ng-submit="compareMatches()">
         <input type="text" ng-model="compareName" ng-click="compareName = null" name="text">
-        <input type="submit" id="submit" value="You're really, really gonna win" ng-click="someclassname='active'">
+        <input type="submit" id="submit" value="You're really, really gonna win">
     </form><br>
 
-    <form class="urlDrop" ng-submit="getUrl()" >
-        <input type="url" ng-model="urlDrop" ng-click="urlDrop = null">
-        <input type="submit"  value="CSGOlounge Url">
-    </form>
-
+    <div class="urlDiv">
+        <form class="urlDrop" ng-submit="getUrl()" >
+            <input type="url" id="urlInput" ng-model="urlDrop" ng-click="urlDrop = null">
+            <input type="submit"  value="CSGOlounge Url">
+        </form>
+    </div>
 
 
     <!-- need two divs:
@@ -39,7 +40,7 @@
 
     </div>
 
-    <div class="info" ng-class="someclassname" ng-show="matches.all.length">
+    <div class="info active"  ng-show="matches.all.length">
         <div class="history">Displaying results for: {{teamName}} <br>
             Record for csgolounge odds:
             <div id="odds" ng-repeat="(key, percentage) in matches" ng-show="!$last">
