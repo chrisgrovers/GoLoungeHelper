@@ -12,10 +12,12 @@ body {
     padding: 10px;
 }
 .compare {
-    width: 43%
+    width: 45%
 }
-.compareRight {
-    width: 43%;
+.compareInfo {
+    position: absolute;
+    right: 10px;
+    width: 45%;
 }
 
 #history {
@@ -30,4 +32,8 @@ body {
 .compareInput {
     top: 10px;
     float:right;
+}
+
+.active {
+    width: 43%;
 }

@@ -10,9 +10,9 @@
         <input type="submit" id="submit" value="You're so gonna win">
     </form>
 
-    <form class="compareInput" ng-show="matches.length" ng-submit="getBets()">
+    <form class="compareInput" ng-show="matches.length" ng-submit="compareMatches()">
         <input type="text" ng-model="compareName" ng-click="compareName = null" name="text">
-        <input type="submit" id="submit" value="You're really, really gonna win">
+        <input type="submit" id="submit" value="You're really, really gonna win" ng-click="someclassname='active'">
     </form>
 
 
@@ -30,13 +30,23 @@
   This text color can be changed by class
 </div> -->
 
-    <div class="info" ng-show="matches.length">
+    <div class="info" ng-class="someclassname" ng-show="matches.length">
         <div>Displaying results for: {{teamName}} <br>
-            Record: {{numWins}}/{{numMatches}}</div>
+            </div>
     <!-- list of matches under here-->
         <div  id="history" ng-repeat="matches in matches">
             VS. {{ matches.vs }} -- odds of winning: {{matches.odds}}
             -- Did they win?: {{matches.won}} -- date: {{matches.date}}<br>
+        </div>
+    </div>
+
+    <div class="compareInfo info" ng-show="secondMatches.length">
+        <div>Displaying results for: {{compareName}} <br>
+            </div>
+    <!-- list of matches under here-->
+        <div  id="history" ng-repeat="battles in secondMatches">
+            VS. {{ battles.vs }} -- odds of winning: {{battles.odds}}
+            -- Did they win?: {{battles.won}} -- date: {{battles.date}}<br>
         </div>
     </div>
 
