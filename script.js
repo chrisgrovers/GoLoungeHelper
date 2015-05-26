@@ -14,14 +14,97 @@ betHelper.controller('MainController', function($scope, csgolounge) {
 
     $scope.teamName = "TEAM NAME HERE";
     $scope.compareName = "Compare A Team";
-    $scope.matches = [];
-    $scope.secondMatches = [];
+    $scope.compareBox = [];
+    $scope.matches = {
+        all: [],
+        9:[0,0],
+        8:[0,0],
+        7:[0,0],
+        6:[0,0],
+        5:[0,0],
+        4:[0,0],
+        3:[0,0],
+        2:[0,0],
+        1:[0,0]
+    };
+
+    $scope.secondMatches = {
+        all: [],
+        9:[0,0],
+        8:[0,0],
+        7:[0,0],
+        6:[0,0],
+        5:[0,0],
+        4:[0,0],
+        3:[0,0],
+        2:[0,0],
+        1:[0,0]
+    };
+
+    $scope.compareNumbers = function() {
+        for (var k = 0; k < $scope.matches.all.length; k++) {
+            if ($scope.matches.all[k].vs === $scope.compareName) {
+                $scope.compareBox.push($scope.matches.all[k]);
+            }
+        }
+    }
+
+    $scope.percentage = function(match, list) {
+        var odds = match.odds.slice(0,2);
+        var result = match.won;
+        if (odds > 90) {
+            list[9][1]++;
+            if (result) {
+                list[9][0]++;
+            }
+        } else if (odds > 80) {
+            list[8][1]++;
+            if (result) {
+                list[8][0]++;
+            }
+        } else if (odds > 70) {
+            list[7][1]++;
+            if (result) {
+                list[7][0]++;
+            }
+        } else if (odds > 60) {
+            list[6][1]++;
+            if (result) {
+                list[6][0]++;
+            }
+        } else if (odds > 50) {
+            list[5][1]++;
+            if (result) {
+                list[5][0]++;
+            }
+        } else if (odds > 40) {
+            list[4][1]++;
+            if (result) {
+                list[4][0]++;
+            }
+        } else if (odds > 30) {
+            list[3][1]++;
+            if (result) {
+                list[3][0]++;
+            }
+        } else if (odds > 20) {
+            list[2][1]++;
+            if (result) {
+                list[2][0]++;
+            }
+        } else  {
+            list[1][1]++;
+            if (result) {
+                list[1][0]++;
+            }
+        }
+    }
 
     $scope.compareMatches = function() {
         // need to add class '.compare' to 
 
         console.log('hello');
-        $scope.secondMatches=[];
+        $scope.secondMatches.all=[];
         csgolounge.getStats()
             .then(function(data) {
             // resp.data should be a big list of all matches in csgolounge
@@ -41,7 +124,8 @@ betHelper.controller('MainController', function($scope, csgolounge) {
                             type: currentMatch.match_type,
                             won: (currentMatch.winner === $scope.compareName)
                         }
-                        $scope.secondMatches.push(match);
+                        $scope.percentage(match, $scope.secondMatches);
+                        $scope.secondMatches.all.push(match);
 
                     } else if (currentMatch.team_b === $scope.compareName) {
                         console.log('a match was found!');
@@ -53,13 +137,11 @@ betHelper.controller('MainController', function($scope, csgolounge) {
                             type: currentMatch.match_type,
                             won: (currentMatch.winner === $scope.compareName)
                         }
-                        if (match) {
-                            $scope.secondMatches.push(match);
-                        } else {
-                            alert('Team not found!');
-                        }
+                        $scope.percentage(match, $scope.secondMatches);
+                        $scope.secondMatches.all.push(match);
                     }
                 }
+                $scope.compareNumbers();
             })
             .catch(function(err) {
                 console.error(err);
@@ -68,7 +150,7 @@ betHelper.controller('MainController', function($scope, csgolounge) {
 
     $scope.getBets = function() {
         console.log('hello');
-        $scope.matches=[];
+        $scope.matches.all=[];
         csgolounge.getStats()
             .then(function(data) {
             // resp.data should be a big list of all matches in csgolounge
@@ -88,7 +170,8 @@ betHelper.controller('MainController', function($scope, csgolounge) {
                             type: currentMatch.match_type,
                             won: (currentMatch.winner === $scope.teamName)
                         }
-                        $scope.matches.push(match);
+                        $scope.percentage(match, $scope.matches);
+                        $scope.matches.all.push(match);
 
                     } else if (currentMatch.team_b === $scope.teamName) {
                         console.log('a match was found!');
@@ -100,7 +183,9 @@ betHelper.controller('MainController', function($scope, csgolounge) {
                             type: currentMatch.match_type,
                             won: (currentMatch.winner === $scope.teamName)
                         }
-                        $scope.matches.push(match);
+                        $scope.percentage(match, $scope.matches);
+                        $scope.matches.all.push(match);
+                        console.dir($scope.matches);
                     }
                 }
             })

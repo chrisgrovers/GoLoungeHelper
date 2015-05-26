@@ -12,12 +12,19 @@ body {
     padding: 10px;
 }
 .compare {
+    left: 10px;
     width: 45%
 }
 .compareInfo {
-    position: absolute;
+    clear: both;
+    float: right;
+    position: relative;
     right: 10px;
     width: 45%;
+}
+.matchup {
+    text-align: center;
+
 }
 
 #history {
@@ -35,5 +42,6 @@ body {
 }
 
 .active {
+    display: inline-block;
     width: 43%;
 }
