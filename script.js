@@ -5,14 +5,24 @@ var betHelper = angular.module('betHelper', [])
 
 betHelper.controller('MainController', function($scope, csgolounge) {
     //welcome message?
-    $scope.teamName = "TEAM NAME HERE";
-    $scope.matches = {
-        all: []
+    $scope.numMatches = 0;
+    $scope.numWins = function() {
+        var wins = 0;
+        for (var j = 0; j < matches.length; j++) {
+            if (matches[j].won) {
+                wins++;
+            }
+        }
+        $scope.numMatches = matches.length;
+        return wins;
     };
+    $scope.teamName = "TEAM NAME HERE";
+    $scope.matches = [];
+
 
     $scope.getBets = function() {
         console.log('hello');
-        $scope.matches.all=[];
+        $scope.matches=[];
         csgolounge.getStats()
             .then(function(data) {
             // resp.data should be a big list of all matches in csgolounge
@@ -34,7 +44,7 @@ betHelper.controller('MainController', function($scope, csgolounge) {
                             type: currentMatch.match_type,
                             won: (currentMatch.winner === teamName)
                         }
-                        $scope.matches.all.push(match);
+                        $scope.matches.push(match);
 
                     } else if (currentMatch.team_b === teamName) {
                         console.log('a match was found!');
@@ -46,12 +56,12 @@ betHelper.controller('MainController', function($scope, csgolounge) {
                             type: currentMatch.match_type,
                             won: (currentMatch.winner === teamName)
                         }
-                        $scope.matches.all.push(match);
+                        $scope.matches.push(match);
                     }
                 }
                 console.log('matches data');
                 console.dir($scope.matches);
-                $scope.bets = $scope.matches;
+                $scope.numWins();
             })
             .catch(function(err) {
                 console.error(err);
@@ -75,6 +85,15 @@ betHelper.factory('csgolounge', function($http) {
              console.dir(resp.data);
             return resp.data;
         });
+    }
+    //comparestats
+    //only needs to run through list of current matches. Check vs in matches var.
+    var compareTeams = function() {
+
+    }
+
+    var percentageWins = function() {
+
     }
 
     return {

@@ -10,6 +10,11 @@
         <input type="submit" id="submit" value="You're so gonna win">
     </form>
 
+    <form class="compare" ng-show="matches.length" ng-submit="getBets()">
+        <input type="text" ng-model="compareName" name="text">
+        <input type="submit" id="submit" value="You're really, really gonna win">
+    </form>
+
 
 
 
@@ -19,8 +24,10 @@
     <!-- list how close matches are??-->
     <!-- list of matches under here-->
     <div class="info">
-        <div  id="" ng-repeat="matches in matches.all">
-            {{teamName}} VS. {{ matches.vs }} -- odds of winning: {{matches.odds}}
+        <div ng-show="matches.length">Displaying results for: {{teamName}}
+            Record: {{numWins}}/{{numMatches}}</div>
+        <div  id="history" ng-repeat="matches in matches">
+            VS. {{ matches.vs }} -- odds of winning: {{matches.odds}}
             -- Did they win?: {{matches.won}} -- date: {{matches.date}}<br>
         </div>
     </div>
